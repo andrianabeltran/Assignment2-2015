@@ -14,6 +14,8 @@ var Instagram = require('instagram-node-lib');
 var async = require('async');
 var app = express();
 
+var _ = require('underscore');
+
 //local dependencies
 var models = require('./models');
 
@@ -208,8 +210,14 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
           async.parallel(asyncTasks, function(err){
             // All tasks are done now
             if (err) return err;
+            mediaCounts = _.sortBy(mediaCounts, function(item) {
+              return item.counts.media;
+            });
+
+            console.log(mediaCounts);
             return res.json({users: mediaCounts});        
           });
+
         }
       });   
     }
