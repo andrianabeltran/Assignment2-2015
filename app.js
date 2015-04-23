@@ -272,11 +272,11 @@ app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('c3visualization');
 }); 
 
-app.get('/visualizationNew',  ensureAuthenticatedInstagram, function (req, res){
+app.get('/visualizationNew', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualizationNew');
 }); 
 
-app.get('/c3visualizationNew',  ensureAuthenticatedInstagram, function (req, res){
+app.get('/c3visualizationNew', ensureAuthenticatedInstagram, function (req, res){
   res.render('c3visualizationNew');
 }); 
 
