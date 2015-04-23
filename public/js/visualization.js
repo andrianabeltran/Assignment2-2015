@@ -57,6 +57,9 @@ d3.json('/igMediaCounts', function(error, data) {
     .style("text-anchor", "end")
     .text("Number of Photos");
 
+    var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
   //set up bars in bar graph
   svg.selectAll(".bar")
     .data(data.users)
@@ -65,5 +68,19 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("x", function(d) { return scaleX(d.username); })
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
-    .attr("height", function(d) { return height - scaleY(d.counts.media); });
+    .attr("height", function(d) { return height - scaleY(d.counts.media); })
+    .on("mouseover", function(d) {      
+            div.transition()        
+                .duration(200)      
+                .style("opacity", .9);
+            div .html(d.full_name + "<br/>" + "<img src=\"" + d.profile_picture + "\">")  
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (scaleY(d.counts.media) - 5) + "px");    
+            })                  
+        .on("mouseout", function(d) {       
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+        });
+
 });

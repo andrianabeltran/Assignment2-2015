@@ -214,7 +214,6 @@ app.get('/igMediaCounts', ensureAuthenticatedInstagram, function(req, res){
               return item.counts.media;
             });
 
-            console.log(mediaCounts);
             return res.json({users: mediaCounts});        
           });
 
