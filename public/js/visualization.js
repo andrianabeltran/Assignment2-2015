@@ -19,12 +19,21 @@ var yAxis = d3.svg.axis()
   .scale(scaleY)
   .orient("left");
 
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return d.full_name + "<br/>" + "<img src=\"" + d.profile_picture + "\">";
+  })
+
 //create svg
 var svg = d3.select("body").append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
 
 //get json object which contains media counts
 // show the gif spinner image before GET request
@@ -71,18 +80,7 @@ d3.json('/igMediaCounts', function(error, data) {
     .attr("width", scaleX.rangeBand())
     .attr("y", function(d) { return scaleY(d.counts.media); })
     .attr("height", function(d) { return height - scaleY(d.counts.media); })
-    .on("mouseover", function(d) {      
-            div.transition()        
-                .duration(200)      
-                .style("opacity", .9);
-            div .html(d.full_name + "<br/>" + "<img src=\"" + d.profile_picture + "\">")  
-                .style("left", (d3.event.pageX) + "px")     
-                .style("top", (scaleY(d.counts.media) - 5) + "px");    
-            })                  
-        .on("mouseout", function(d) {       
-            div.transition()        
-                .duration(500)      
-                .style("opacity", 0);   
-        });
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
 
 });

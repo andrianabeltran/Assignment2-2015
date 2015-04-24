@@ -19,6 +19,7 @@
     "mongoose-findorcreate": "^0.1.2",
     "passport": "0.2.1",
     "passport-instagram": "0.1.2",
+    "superagent": "1.2.0",
     "underscore": "1.8.3"
   },
   "engines": {

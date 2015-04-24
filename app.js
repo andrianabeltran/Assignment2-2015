@@ -15,6 +15,7 @@ var async = require('async');
 var app = express();
 
 var _ = require('underscore');
+var request = require('superagent');
 
 //local dependencies
 var models = require('./models');
@@ -234,28 +235,40 @@ app.get('/igMediaCountsPopularity', ensureAuthenticatedInstagram, function(req, 
         complete: function(data) {
           // an array of asynchronous functions
           var asyncTasks = [];
-          var mediaCounts = [];
+          var aggregatedCounts = [];
 
           data.forEach(function(item){
             asyncTasks.push(function(callback){
-              // asynchronous function!
-              Instagram.users.info({ 
-                  user_id: item.id,
-                  access_token: user.ig_access_token,
-                  complete: function(data) {
-                    mediaCounts.push(data);
-                    callback();
-                  }
-                });            
+              // asynchronouse function: get each followers posts' likes and comments
+              request
+                .get('https://api.instagram.com/v1/users/' + item.id + '/media/recent/?access_token=' + user.ig_access_token)
+                .end(function(err, res){
+                  // filter and clean data
+                  var userCounts = {
+                    likes: 0,
+                    comments: 0
+                  };
+
+                  _.each(res.body.data, function(item) {
+                    if(!userCounts.username) {
+                      userCounts.username = item.user.username;
+                    }
+                    userCounts.likes += item.likes.count;
+                    userCounts.comments += item.comments.count;
+                  });
+
+                  aggregatedCounts.push(userCounts);
+                  callback();
+                });           
             });
           });
-          
+
           // Now we have an array of functions, each containing an async task
           // Execute all async tasks in the asyncTasks array
           async.parallel(asyncTasks, function(err){
             // All tasks are done now
             if (err) return err;
-            return res.json({users: mediaCounts});        
+            return res.json({users: aggregatedCounts});        
           });
         }
       });   
