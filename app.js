@@ -239,26 +239,30 @@ app.get('/igMediaCountsPopularity', ensureAuthenticatedInstagram, function(req, 
 
           data.forEach(function(item){
             asyncTasks.push(function(callback){
-              // asynchronouse function: get each followers posts' likes and comments
+              // asynchronous function: get each followers posts' likes and comments
               request
                 .get('https://api.instagram.com/v1/users/' + item.id + '/media/recent/?access_token=' + user.ig_access_token)
                 .end(function(err, res){
-                  // filter and clean data
-                  var userCounts = {
-                    likes: 0,
-                    comments: 0
-                  };
+                  if(err || !res || !res.body || !res.body.data) {
+                    callback();
+                  } else {
+                    // filter and clean data
+                    var userCounts = {
+                      likes: 0,
+                      comments: 0
+                    };
 
-                  _.each(res.body.data, function(item) {
-                    if(!userCounts.username) {
-                      userCounts.username = item.user.username;
-                    }
-                    userCounts.likes += item.likes.count;
-                    userCounts.comments += item.comments.count;
-                  });
+                    _.each(res.body.data, function(item) {
+                      if(!userCounts.username) {
+                        userCounts.username = item.user.username;
+                      }
+                      userCounts.likes += item.likes.count;
+                      userCounts.comments += item.comments.count;
+                    });
 
-                  aggregatedCounts.push(userCounts);
-                  callback();
+                    aggregatedCounts.push(userCounts);
+                    callback();
+                  }
                 });           
             });
           });
@@ -269,6 +273,74 @@ app.get('/igMediaCountsPopularity', ensureAuthenticatedInstagram, function(req, 
             // All tasks are done now
             if (err) return err;
             return res.json({users: aggregatedCounts});        
+          });
+        }
+      });   
+    }
+  });
+});
+
+app.get('/igTags', ensureAuthenticatedInstagram, function(req, res){
+  var query  = models.User.where({ ig_id: req.user.ig_id });
+  query.findOne(function (err, user) {
+    if (err) return err;
+    if (user) {
+      Instagram.users.follows({ 
+        user_id: user.ig_id,
+        access_token: user.ig_access_token,
+        complete: function(data) {
+          // an array of asynchronous functions
+          var asyncTasks = [];
+          var tagData = {};
+
+          data.forEach(function(item){
+            asyncTasks.push(function(callback){
+              // asynchronous function: get each followers posts' location
+              request
+                .get('https://api.instagram.com/v1/users/' + item.id + '/media/recent/?access_token=' + user.ig_access_token)
+                .end(function(err, res){
+                  if(err || !res || !res.body || !res.body.data) {
+                    callback();
+                  } else {
+                    _.each(res.body.data, function(item) {
+                      _.each(item.tags, function(tag) {
+                        if(!tagData[tag]) {
+                          tagData[tag] = 1;
+                        } else {
+                          tagData[tag] += 1;
+                        }
+                      });
+                    });
+                    callback();
+                  }
+                });           
+            });
+          });
+
+          // Now we have an array of functions, each containing an async task
+          // Execute all async tasks in the asyncTasks array
+          async.parallel(asyncTasks, function(err){
+            // All tasks are done now
+            if (err) return err;
+            tagData = _.pairs(tagData);
+            tagData = _.sortBy(tagData, function(item) {
+              return -item[1];
+            });
+            tagData = tagData.slice(0, 10);
+
+            var globalCounts = {};
+            var iter = 0;
+            for(var idx = 0; idx < tagData.length; ++idx) {
+              request
+              .get('https://api.instagram.com/v1/tags/' + tagData[idx][0] + '?access_token=' + user.ig_access_token)
+              .end(function(err, resp) {
+                globalCounts[resp.body.data.name] = resp.body.data.media_count;
+                iter += 1;
+                if(iter === 10) {
+                  return res.json({friendData: tagData, globalData: globalCounts});
+                }
+              });
+            }            
           });
         }
       });   

@@ -1,7 +1,7 @@
-body {
+/*body {
     font-family:"Helvetica Neue";
     color: #686765;
-}
+}*/
 .name {
     float:right;
     color:#27aae1;
@@ -11,12 +11,7 @@ body {
     stroke: #AAA;
     stroke-width: 1px;
 }
-text {
-    stroke: none;
-    fill: #666666;
-    font-size: .6em;
-    font-family:"Helvetica Neue"
-}
+
 .label {
     fill: #414241;
 }

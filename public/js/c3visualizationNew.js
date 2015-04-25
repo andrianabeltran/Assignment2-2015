@@ -1,19 +1,17 @@
 (function() {
-  $.getJSON( '/igMediaCounts')
+  $.getJSON( '/igTags')
     .done(function( data ) {
-      var yCounts = data.users.map(function(item){
-        return item.counts.media;
-      });
-      
-      yCounts.unshift('Media Count');
-
       var chart = c3.generate({
         bindto: '#chart',
         data: {
-          columns: [
-            yCounts 
-          ]
-        }
+          // iris data from R
+          columns: data.friendData,
+          type : 'pie',
+          onmouseover: function (d, i) {  },
+          onmouseout: function (d, i) {  }
+        },
       });
     });
 })();
+
+

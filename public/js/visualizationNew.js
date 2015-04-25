@@ -18,6 +18,15 @@ function showScatterPlot(data) {
     // this will be our colour scale. An Ordinal scale.
     var colors = d3.scale.category20();
 
+    //define scale of y to be from the height of SVG to 0
+    var scaleY = d3.scale.linear()
+      .range([height, 0]);
+
+    //define axes
+    var yAxis = d3.svg.axis()
+      .scale(scaleY)
+      .orient("left");
+
     var tip = d3.tip()
       .attr('class', 'd3-tip')
       .offset([-10, 0])
@@ -58,15 +67,17 @@ function showScatterPlot(data) {
         .attr("fill", "#414241")
         .attr("text-anchor", "end")
         .attr("x", width / 2)
-        .attr("y", height - 35)
+        .attr("y", height - 30)
         .text("Number of Likes");
 
     // this is our X axis label. Nothing too special to see here.
     svg.append("text")
         .attr("fill", "#414241")
         .attr("text-anchor", "end")
-        .attr("x", 50)
-        .attr("y", -5)
+        .attr("x", 30)
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .attr("transform", "rotate(-90)")
         .text("Number of Comments");
 
     // this is the actual definition of our x and y axes. The orientation refers to where the labels appear - for the x axis, below or above the line, and for the y axis, left or right of the line. Tick padding refers to how much space between the tick and the label. There are other parameters too - see https://github.com/mbostock/d3/wiki/SVG-Axes for more information
