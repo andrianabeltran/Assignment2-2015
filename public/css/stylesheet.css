@@ -1,0 +1,59 @@
+body {
+	background-color: #E44424;
+}
+
+.wrapper{
+	height: 50%;
+	width: 55%;
+ 	margin: auto;
+  	position: absolute;
+  	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+h1 {
+    font-family: 'Lobster', Georgia, Times, serif;
+    line-height: 130px;
+    color: #FDF3E7;
+    font-size: 8em;
+    text-align: center;
+}
+ 
+p {
+    font-family: 'Cabin', Helvetica, Arial, sans-serif;
+    font-size: 2em;
+    line-height: 25px;
+    color: #3B3738;
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#sign {
+	font-family: 'Cabin', Helvetica, Arial, serif;
+	font-size: 1.5em;
+	text-align: center;
+	margin-top: 12px;
+	margin-left: 10px;
+
+}
+#login {
+	width: 250px;
+	height: 50px;
+	background-color: #FDF3E7;
+	margin: auto;
+  	position: absolute;
+  	top: 130px; left: 0; bottom: 0; right: 0;
+  	border-radius: 10px;
+}
+
+#login:hover {
+	background-color: #dcddcd;
+}
+
+#logo {
+	float: left;
+	position: absolute;
+	height: 100%;
+}
