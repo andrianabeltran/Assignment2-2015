@@ -337,6 +337,7 @@ app.get('/igTags', ensureAuthenticatedInstagram, function(req, res){
                 globalCounts[resp.body.data.name] = resp.body.data.media_count;
                 iter += 1;
                 if(iter === 10) {
+                  globalCounts = _.pairs(globalCounts);
                   return res.json({friendData: tagData, globalData: globalCounts});
                 }
               });

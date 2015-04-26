@@ -1,6 +1,7 @@
 // call the method below
 d3.json('/igMediaCountsPopularity', function(error, data) {
-  showScatterPlot(data.users);
+    $('div').remove('#spinner-dots');
+    showScatterPlot(data.users);
 });
 
 function showScatterPlot(data) {
