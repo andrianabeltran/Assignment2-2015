@@ -1,6 +1,8 @@
 (function() {
   $.getJSON( '/igMediaCounts')
     .done(function( data ) {
+      $('div').remove('#spinner-dots');
+      
       var yCounts = data.users.map(function(item){
         return item.counts.media;
       });

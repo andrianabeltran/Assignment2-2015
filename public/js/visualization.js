@@ -38,6 +38,7 @@ svg.call(tip);
 //get json object which contains media counts
 // show the gif spinner image before GET request
 d3.json('/igMediaCounts', function(error, data) {
+  $('div').remove('#spinner-dots');
   
   //set domain of x to be all the usernames contained in the data
   scaleX.domain(data.users.map(function(d) { return d.username; }));
