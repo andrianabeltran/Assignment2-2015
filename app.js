@@ -157,21 +157,21 @@ app.get('/account', function(req, res){
   res.render('account', {user: req.user});
 });
 
-app.get('/c3visualization', function(req, res){
-  res.render('c3visualization', {user: req.user});
-});
-
-app.get('/c3visualizationNew', function(req, res){
-  res.render('c3visualizationNew', {user: req.user});
-});
-
-app.get('/visualization', function(req, res){
+app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualization', {user: req.user});
-});
+}); 
 
-app.get('/visualizationNew', function(req, res){
+app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
+  res.render('c3visualization', {user: req.user});
+}); 
+
+app.get('/visualizationNew', ensureAuthenticatedInstagram, function (req, res){
   res.render('visualizationNew', {user: req.user});
-});
+}); 
+
+app.get('/c3visualizationNew', ensureAuthenticatedInstagram, function (req, res){
+  res.render('c3visualizationNew', {user: req.user});
+}); 
 
 app.get('/igphotos', ensureAuthenticatedInstagram, function(req, res){
   var query  = models.User.where({ ig_id: req.user.ig_id });
@@ -367,23 +367,6 @@ app.get('/igTags', ensureAuthenticatedInstagram, function(req, res){
     }
   });
 });
-
-app.get('/visualization', ensureAuthenticatedInstagram, function (req, res){
-  res.render('visualization');
-}); 
-
-
-app.get('/c3visualization', ensureAuthenticatedInstagram, function (req, res){
-  res.render('c3visualization', {user: req.user});
-}); 
-
-app.get('/visualizationNew', ensureAuthenticatedInstagram, function (req, res){
-  res.render('visualizationNew');
-}); 
-
-app.get('/c3visualizationNew', ensureAuthenticatedInstagram, function (req, res){
-  res.render('c3visualizationNew');
-}); 
 
 app.get('/auth/instagram',
   passport.authenticate('instagram'),
