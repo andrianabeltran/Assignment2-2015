@@ -65,6 +65,7 @@ passport.use(new InstagramStrategy({
     // asynchronous verification, for effect...
    models.User.findOne({
     "ig_id": profile.id
+
    }, function(err, user) {
       if (err) {
         return done(err); 
@@ -75,7 +76,8 @@ passport.use(new InstagramStrategy({
         newUser = new models.User({
           name: profile.username, 
           ig_id: profile.id,
-          ig_access_token: accessToken
+          ig_access_token: accessToken,
+          profile_picture: profile._json.data.profile_picture,
         });
 
         newUser.save(function(err) {
@@ -89,6 +91,7 @@ passport.use(new InstagramStrategy({
       } else {
         //update user here
         user.ig_access_token = accessToken;
+        user.profile_picture = profile_picture;
         user.save();
         process.nextTick(function () {
           // To keep the example simple, the user's Instagram profile is returned to

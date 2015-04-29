@@ -89,3 +89,22 @@ div#bs-example-navbar-collapse-1.collapse.navbar-collapse {
 li {
 	color: 
 }
+
+.profilepic {
+	width: 30px;
+	height: 30px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+li.disabled a {
+	padding: 10px 0 0 0;
+}
+
+ul.dropdown-menu{
+	width: 100%;
+}
