@@ -91,7 +91,7 @@ passport.use(new InstagramStrategy({
       } else {
         //update user here
         user.ig_access_token = accessToken;
-        user.profile_picture = profile_picture;
+        user.profile_picture = profile._json.data.profile_picture;
         user.save();
         process.nextTick(function () {
           // To keep the example simple, the user's Instagram profile is returned to
