@@ -158,6 +158,18 @@ app.get('/c3visualization', function(req, res){
   res.render('c3visualization', {user: req.user});
 });
 
+app.get('/c3visualizationNew', function(req, res){
+  res.render('c3visualizationNew', {user: req.user});
+});
+
+app.get('/visualization', function(req, res){
+  res.render('visualization', {user: req.user});
+});
+
+app.get('/visualizationNew', function(req, res){
+  res.render('visualizationNew', {user: req.user});
+});
+
 app.get('/igphotos', ensureAuthenticatedInstagram, function(req, res){
   var query  = models.User.where({ ig_id: req.user.ig_id });
   query.findOne(function (err, user) {

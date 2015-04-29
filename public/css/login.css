@@ -1,15 +1,29 @@
 body.loginpage {
 	background-color: #E44424;
+	
 }
 
 .wrapper{
-	height: 50%;
+	height: 60%;
 	width: 55%;
  	margin: auto;
   	position: absolute;
   	top: 0; left: 0; bottom: 0; right: 0;
+
+
 }
 
+#bubble {
+	z-index: 0;
+    position: absolute;
+    top: -12px;
+	right: 114px;
+	width: 74px;
+	height: 95px;
+	opacity: .85;
+
+
+}
 h1#title {
     font-family: 'Lobster', Georgia, Times, serif;
     line-height: 130px;
@@ -18,25 +32,22 @@ h1#title {
     text-align: center;
 }
 
-h1 {
-	font-family: 'Lobster', Georgia, Times, serif;
-	margin: 6px 0 0 0;
-}
- 
+
 p {
     font-family: 'Cabin', Helvetica, Arial, sans-serif;
     font-size: 2em;
     line-height: 25px;
     color: #3B3738;
     text-align: center;
+
 }
 
 a:hover {
-    text-decoration: none;
+    text-decoration: hidden;
 }
 
 #sign {
-	font-family: 'Cabin', Helvetica, Arial, serif;
+	font-family: 'Lobster', Georgia, Times, serif;
 	font-size: 1.5em;
 	text-align: center;
 	margin-top: 12px;
@@ -49,12 +60,15 @@ a:hover {
 	background-color: #FDF3E7;
 	margin: auto;
   	position: absolute;
-  	top: 130px; left: 0; bottom: 0; right: 0;
+  	top: 90px; left: 0; bottom: 0; right: 0;
   	border-radius: 10px;
+  	box-shadow: 2px 2px 6px #3B3738;
 }
 
 #login:hover {
 	background-color: #dcddcd;
+	box-shadow: hidden;
+
 }
 
 #logo {
@@ -64,28 +78,22 @@ a:hover {
 }
 .navbar-brand {
 	padding: 0 0 0 0;
+	visibility: hidden;
 }
 p.navbar-text.navbar-right {
 	margin: 0 0 0 0;
+	visibility: hidden;
 }
 .ul.nav.nav-tabs  {
 	height: 144px;
+	visibility: hidden;
 }
 
-#chart {
-	position: absolute;
+.header {
+	visibility: hidden;
 }
 
-nav.navbar.navbar-fixed-top {
-	margin: 0 0 0 0;
-	color: #E44424;
-	background-color: #3B3738;
+nav {
+	visibility: hidden;
 }
 
-div#bs-example-navbar-collapse-1.collapse.navbar-collapse {
-	margin-left: 190px;
-}
-
-li {
-	color: 
-}
