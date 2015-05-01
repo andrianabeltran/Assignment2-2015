@@ -84,4 +84,42 @@ d3.json('/igMediaCounts', function(error, data) {
     .on('mouseover', tip.show)
     .on('mouseout', tip.hide)
 
+  //sorting
+  d3.select("#sort-button-desc").on("click", function() {
+    document.getElementById("sort-button-asc").disabled = false;
+    this.disabled = true; 
+    //if box is checked, sort by media
+    var scaleX_sorted = scaleX.domain(data.users.sort(function(a, b) { return b.counts.media - a.counts.media; })
+        .map(function(d) { return d.username; }));
+
+    // Make use of SVG transition to define a duration for the sorting animation
+    var transition = svg.transition().duration(500);
+    transition.selectAll(".bar")
+        .attr("x", function(d) { return scaleX(d.username); });
+
+    transition.select(".x.axis")
+        .call(xAxis)
+        .selectAll("text")  
+        .style("text-anchor", "end")
+  });
+
+  //sorting
+  d3.select("#sort-button-asc").on("click", function() {
+    document.getElementById("sort-button-desc").disabled = false;
+    this.disabled = true; 
+    //if box is checked, sort by media
+    var scaleX_sorted = scaleX.domain(data.users.sort(function(a, b) { return a.counts.media - b.counts.media; })
+        .map(function(d) { return d.username; }));
+
+    // Make use of SVG transition to define a duration for the sorting animation
+    var transition = svg.transition().duration(500);
+    transition.selectAll(".bar")
+        .attr("x", function(d) { return scaleX(d.username); });
+
+    transition.select(".x.axis")
+        .call(xAxis)
+        .selectAll("text")  
+        .style("text-anchor", "end")
+  });
+
 });
