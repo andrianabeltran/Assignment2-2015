@@ -27,7 +27,7 @@ var tip = d3.tip()
   })
 
 //create svg
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#chart").append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -39,7 +39,9 @@ svg.call(tip);
 // show the gif spinner image before GET request
 d3.json('/igMediaCounts', function(error, data) {
   $('div').remove('#spinner-dots');
-  
+  $('#sort-button-desc').css('display', 'inline');
+  $('#sort-button-asc').css('display', 'inline');
+
   //set domain of x to be all the usernames contained in the data
   scaleX.domain(data.users.map(function(d) { return d.username; }));
   //set domain of y to be from 0 to the maximum media count returned
@@ -88,7 +90,7 @@ d3.json('/igMediaCounts', function(error, data) {
   d3.select("#sort-button-desc").on("click", function() {
     document.getElementById("sort-button-asc").disabled = false;
     this.disabled = true; 
-    //if box is checked, sort by media
+    //if button is clicked, sort by media
     var scaleX_sorted = scaleX.domain(data.users.sort(function(a, b) { return b.counts.media - a.counts.media; })
         .map(function(d) { return d.username; }));
 
@@ -107,7 +109,7 @@ d3.json('/igMediaCounts', function(error, data) {
   d3.select("#sort-button-asc").on("click", function() {
     document.getElementById("sort-button-desc").disabled = false;
     this.disabled = true; 
-    //if box is checked, sort by media
+    //if button is clicked, sort by media
     var scaleX_sorted = scaleX.domain(data.users.sort(function(a, b) { return a.counts.media - b.counts.media; })
         .map(function(d) { return d.username; }));
 

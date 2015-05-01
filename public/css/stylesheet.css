@@ -21,6 +21,7 @@ h1#title {
 h1 {
 	font-family: 'Lobster', Georgia, Times, serif;
 	margin: 6px 0 0 0;
+  color: black;
 }
  
 p {
@@ -107,4 +108,8 @@ li.disabled a {
 
 ul.dropdown-menu{
 	width: 100%;
+}
+
+.chart-title {
+  padding-bottom: 20px;
 }

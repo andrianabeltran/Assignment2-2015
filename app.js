@@ -143,17 +143,24 @@ function ensureAuthenticatedInstagram(req, res, next) {
   res.redirect('/login');
 }
 
+function ensureNotAuthenticatedInstagram(req, res, next) {
+  if (req.isAuthenticated() && !!req.user.ig_id) {
+    return res.redirect('/account');
+  } else {
+    return next();
+  }
+}
 
 //routes
-app.get('/', function(req, res){
+app.get('/', ensureNotAuthenticatedInstagram, function(req, res){
   res.render('login');
 });
 
-app.get('/login', function(req, res){
+app.get('/login', ensureNotAuthenticatedInstagram, function(req, res){
   res.render('login', { user: req.user });
 });
 
-app.get('/account', function(req, res){
+app.get('/account', ensureAuthenticatedInstagram, function(req, res){
   res.render('account', {user: req.user});
 });
 

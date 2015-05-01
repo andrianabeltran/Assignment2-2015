@@ -141,3 +141,12 @@ body {
   display: table-cell;
   vertical-align: middle;
 }
+
+#sort-buttons {
+  padding-top: 10px;
+}
+
+#chart {
+  padding-top: 70px;
+  z-index: -1;
+}

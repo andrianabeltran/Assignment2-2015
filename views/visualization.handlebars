@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/visualization.css">
 
-<h1>Media Count of Your Instagram Followers</h1>
+<h1 class="chart-title" align="center">Media Count of Your Instagram Followers</h1>
 
 <div class="table" id="spinner-dots">
   <div class="cell">
@@ -14,13 +14,14 @@
 
 <div id="chart"></div>
 
-<button id="sort-button-desc" type="button" class="btn btn-default btn-lg">
-  Sort Desc
-</button>
+<div id="sort-buttons" align="center">
+  <button id="sort-button-desc" type="button" class="btn btn-default btn-lg" style="display: none;">
+    Sort Desc
+  </button>
 
-<button id="sort-button-asc" type="button" class="btn btn-default btn-lg">
-  Sort Asc
-</button>
+  <button id="sort-button-asc" type="button" class="btn btn-default btn-lg" style="display: none;">
+    Sort Asc
+  </button>
+</div>
 
 <script src="js/visualization.js"></script>
-
