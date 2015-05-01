@@ -9,6 +9,6 @@ Collaborators:
 
 Design Principles:
 
-1. Feedback
+1. Feedback - before the data loads, we have a progress indicator
 
-2. Consistency
+2. Consistency - consistent styling across various pages
